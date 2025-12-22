@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        body {
+            background: var(--light);
+        }
+
+        .preview-note {
+            margin-bottom: 12px;
+            color: #6B6A75
+        }
+    </style>
+</head>
+
+<body>
+    <main style="padding:40px;">
+        <div class="registration-form-wrapper" style="max-width:1100px;margin:0 auto;">
+            <div class="admin-header">
+                <div>
+                    <h1 style="margin:0;color:var(--dark)">Admin Dashboard</h1>
+                    <p style="margin:0;color:#6B6A75">View all form submissions.</p>
+                </div>
+                <div>
+                    <a href="{{ url_for('home') }}" style="margin-right:12px;color:var(--primary);">View site</a>
+                    <a href="{{ url_for('admin_logout') }}" class="logout-btn">Logout</a>
+                </div>
+            </div>
+
+            <div class="admin-tables" style="margin-top: 30px;">
+                <section class="card">
+                    <h2 style="margin-top:0;color:var(--dark)">Registrations</h2>
+                    <div style="overflow-x:auto;">
+                        <table class="table" style="min-width: 600px;">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Course</th>
+                                    <th>Submitted</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for reg in registrations %}
+                                <tr>
+                                    <td>{{ reg.id }}</td>
+                                    <td>{{ reg.full_name }}</td>
+                                    <td>{{ reg.email }}</td>
+                                    <td>{{ reg.phone }}</td>
+                                    <td>{{ reg.course }}</td>
+                                    <td>{{ reg.submitted_at }}</td>
+                                </tr>
+                                {% else %}
+                                <tr>
+                                    <td colspan="6" style="text-align:center;">No registrations found.</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="card" style="margin-top: 30px;">
+                    <h2 style="margin-top:0;color:var(--dark)">Contact Messages</h2>
+                    <div style="overflow-x:auto;">
+                        <table class="table" style="min-width: 600px;">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Subject</th>
+                                    <th>Message</th>
+                                    <th>Submitted</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for msg in messages %}
+                                <tr>
+                                    <td>{{ msg.id }}</td>
+                                    <td>{{ msg.name }}</td>
+                                    <td>{{ msg.email }}</td>
+                                    <td>{{ msg.subject }}</td>
+                                    <td>{{ msg.message }}</td>
+                                    <td>{{ msg.submitted_at }}</td>
+                                </tr>
+                                {% else %}
+                                <tr>
+                                    <td colspan="6" style="text-align:center;">No messages found.</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

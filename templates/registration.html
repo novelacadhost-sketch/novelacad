@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Student Registration - Novelsolar Academy</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Learning, Innovation, Sustainability, Education" name="keywords">
+    <meta content="Novelsolar Academy - Student Registration" name="description">
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600;700&family=Open+Sans:wght@400;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{{ url_for('static', filename='lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navbar Start -->
+    <div class="container-fluid p-0">
+        <nav class="navbar navbar-expand-lg bg-white navbar-light py-3 py-lg-0 px-lg-5">
+            <a href="{{ url_for('home') }}" class="navbar-brand ml-lg-3">
+                <h3 class="m-0 text-uppercase text-primary"><img style="height: 80%;width: 80%; padding-left: 30%;"
+                        src="{{ url_for('static', filename='img/Movelsolar Academy (2).png') }}"
+                        alt="Novelsolar Academy logo"></h3>
+            </a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between px-lg-3" id="navbarCollapse">
+                <div class="navbar-nav mx-auto py-0">
+                    <a href="{{ url_for('home') }}" class="nav-item nav-link">Home</a>
+                    <a href="{{ url_for('about') }}" class="nav-item nav-link">About</a>
+                    <a href="{{ url_for('courses') }}" class="nav-item nav-link">Courses</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">More</a>
+                        <div class="dropdown-menu m-0">
+                            <a href="#" class="dropdown-item">Course Detail</a>
+                            <a href="#" class="dropdown-item">Our Features</a>
+                            <a href="{{ url_for('team') }}" class="dropdown-item">Instructors</a>
+                            <a href="#" class="dropdown-item">Testimonial</a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </nav>
+    </div>
+    <!-- Navbar End -->
+
+    <!-- Registration Container Start -->
+    <div class="registration-container">
+        <div class="registration-form-wrapper">
+            <h1><i class="fa fa-user-check mr-2"></i>Student Registration</h1>
+            <p class="subtitle">Join Novelsolar Academy and start your journey towards a cleaner future</p>
+
+            <div class="form-feedback" id="formFeedback"></div>
+
+            <form id="registrationForm" class="registration-form" method="post"
+                action="{{ url_for('submit_registration') }}">
+                <!-- Personal Information Section -->
+                <div class="form-section-title">
+                    <i class="fa fa-user mr-2"></i>Personal Information
+                </div>
+
+                <div class="form-group">
+                    <label for="fullName">Full Name <span class="required">*</span></label>
+                    <input type="text" id="fullName" name="fullName" class="form-control"
+                        placeholder="Enter your full name" required>
+                    <div class="error-text"></div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email">Email Address <span class="required">*</span></label>
+                        <input type="email" id="email" name="email" class="form-control"
+                            placeholder="your.email@example.com" required>
+                        <div class="error-text"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="phoneNumber">Phone Number <span class="required">*</span></label>
+                        <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control"
+                            placeholder="+234 8123456789" required>
+                        <div class="error-text"></div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="sex">Sex <span class="required">*</span></label>
+                        <select id="sex" name="sex" class="form-control" required>
+                            <option value="">-- Select --</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                            <option value="Prefer not to say">Prefer not to say</option>
+                        </select>
+                        <div class="error-text"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="nationality">Nationality <span class="required">*</span></label>
+                        <input type="text" id="nationalitySearch" class="form-control"
+                            placeholder="Search for your country..." autocomplete="off">
+                        <select id="nationality" name="nationality" class="form-control" required
+                            style="display: none;">
+                            <option value="">-- Select a Country --</option>
+                        </select>
+                        <div id="nationalityDropdown" class="country-dropdown" style="display: none;"></div>
+                        <div class="error-text"></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <input type="text" id="address" name="address" class="form-control"
+                        placeholder="Enter your residential address">
+                </div>
+
+                <!-- Educational Background Section -->
+                <div class="form-section-title">
+                    <i class="fa fa-graduation-cap mr-2"></i>Educational Background
+                </div>
+
+                <div class="form-group">
+                    <label for="educationLevel">Previous Educational Level <span class="required">*</span></label>
+                    <select id="educationLevel" name="educationLevel" class="form-control" required>
+                        <option value="">Select</option>
+                        <option value="Primary School">Primary School</option>
+                        <option value="Secondary School">Secondary School</option>
+                        <option value="High School">High School</option>
+                        <option value="National Diploma (ND)">National Diploma (ND)</option>
+                        <option value="Higher National Diploma (HND)">Higher National Diploma (HND)</option>
+                        <option value="Bachelor's Degree">Bachelor's Degree</option>
+                        <option value="Master's Degree">Master's Degree</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <div class="error-text"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="qualification">Qualification/Certificate <span class="required">*</span></label>
+                    <input type="text" id="qualification" name="qualification" class="form-control"
+                        placeholder="e.g., WASSCE, NECO, O'Level" required>
+                    <div class="error-text"></div>
+                </div>
+
+                <!-- Course Information Section -->
+                <div class="form-section-title">
+                    <i class="fa fa-book mr-2"></i>Course Information
+                </div>
+
+                <div class="form-group">
+                    <label for="course">Select Course <span class="required">*</span></label>
+                    <select id="course" name="course" class="form-control" required>
+                        <option value="">-- Select a Course --</option>
+                        <option value="Solar Design and Installation">Solar Design and Installation</option>
+                        <option value="Solarpreneurship and Business Management">Solarpreneurship and Business
+                            Management</option>
+                        <option value="Repair and Maintenance">Repair and Maintenance</option>
+                        <option value="HSE (Health, Safety, and Environment) Management">HSE (Health, Safety, and
+                            Environment) Management</option>
+                        <option value="Artificial Intelligence and Robotics">Artificial Intelligence and Robotics
+                        </option>
+                        <option value="Web Design and Development">Web Design and Development</option>
+                        <option value="Digital Marketing">Digital Marketing</option>
+                    </select>
+                    <div class="error-text"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="courseGoals">Your Goals for the Course <span class="required">*</span></label>
+                    <textarea id="courseGoals" name="courseGoals" class="form-control"
+                        placeholder="Tell us what you hope to achieve from this course..." required></textarea>
+                    <div class="error-text"></div>
+                </div>
+
+                <!-- Additional Information Section -->
+                <div class="form-section-title">
+                    <i class="fa fa-info-circle mr-2"></i>Additional Information
+                </div>
+
+                <div class="form-group">
+                    <label for="experience">Prior Experience (if any)</label>
+                    <textarea id="experience" name="experience" class="form-control"
+                        placeholder="Tell us about any relevant experience you have..."
+                        style="min-height: 100px;"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="terms" name="terms" required>
+                        <span class="ml-2">I agree to the Terms and Conditions and Privacy Policy <span
+                                class="required">*</span></span>
+                    </label>
+                </div>
+
+                <!-- Buttons -->
+                <div>
+                    <button type="submit" class="btn-submit">Submit Registration</button>
+                    <button type="reset" class="btn-reset">Clear Form</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Registration Container End -->
+
+    <!-- Footer Start -->
+    <div class="container-fluid position-relative overlay-top bg-dark text-white-50 py-5" style="margin-top: 90px;">
+        <div class="container mt-5 pt-5">
+            <div class="row">
+                <div class="col-md-8 offset-md-4 mb-5">
+                    <a href="{{ url_for('home') }}" class="navbar-brand">
+                        <h4 class="mt-n2 text-uppercase text-white"><i class="fa fa-book-reader mr-3"></i>Novelsolar
+                            Academy</h4>
+                    </a>
+                    <p class="m-0">Where innovation meets sustainability!</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-5">
+                    <h3 class="text-white mb-4">Get In Touch</h3>
+                    <p><i class="fa fa-map-marker-alt mr-2"></i>76, Adekunle Fajuyi Road Ibadan.
+                        Opposite Gate 3, Adamasingba Stadium, Ibadan Oyo State</p>
+                    <p><i class="fa fa-phone-alt mr-2"></i>+234 8113695917</p>
+                    <p><i class="fa fa-envelope mr-2"></i>novelsolaracademy@gmail.com</p>
+                    <div class="d-flex justify-content-start mt-4">
+                        <a class="text-white mr-4" href="#"><i class="fab fa-2x fa-twitter"></i></a>
+                        <a class="text-white mr-4" href="#"><i class="fab fa-2x fa-facebook-f"></i></a>
+                        <a class="text-white mr-4" href="#"><i class="fab fa-2x fa-linkedin-in"></i></a>
+                        <a class="text-white" href="#"><i class="fab fa-2x fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-5">
+                    <h3 class="text-white mb-4">Our Courses</h3>
+                    <div class="d-flex flex-column justify-content-start">
+                        <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Web Design</a>
+                        <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Solar Energy</a>
+                        <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Digital
+                            Marketing</a>
+                        <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Robotics</a>
+                        <a class="text-white-50" href="#"><i class="fa fa-angle-right mr-2"></i>HSE Management</a>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-5">
+                    <h3 class="text-white mb-4">Quick Links</h3>
+                    <div class="d-flex flex-column justify-content-start">
+                        <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Privacy Policy</a>
+                        <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Terms &
+                            Condition</a>
+                        <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Regular FAQs</a>
+                        <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Help & Support</a>
+                        <a class="text-white-50" href="#"><i class="fa fa-angle-right mr-2"></i>Contact</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid bg-dark text-white-50 border-top py-4"
+        style="border-color: rgba(256, 256, 256, .1) !important;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-left mb-3 mb-md-0">
+                    <p class="m-0">Copyright &copy; <a class="text-white" href="#">Novelsolar Academy</a>. All Rights
+                        Reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-right">
+                    <p class="m-0">Designed by <a class="text-white" href="#">Novelsolar Academy</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary rounded-0 btn-lg-square back-to-top"><i
+            class="fa fa-angle-double-up"></i></a>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/counterup/counterup.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+    <!-- Registration Form Handling -->
+    <script>
+        // List of countries
+        const countries = [
+            "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria",
+            "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan",
+            "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cambodia", "Cameroon",
+            "Canada", "Cape Verde", "Central African Republic", "Chad", "Chile", "China", "Colombia", "Comoros", "Congo", "Costa Rica",
+            "Croatia", "Cuba", "Cyprus", "Czech Republic", "Czechia", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "East Timor",
+            "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Eswatini", "Ethiopia", "Fiji", "Finland",
+            "France", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Greece", "Grenada", "Guatemala", "Guinea",
+            "Guinea-Bissau", "Guyana", "Haiti", "Honduras", "Hong Kong", "Hungary", "Iceland", "India", "Indonesia", "Iran",
+            "Iraq", "Ireland", "Israel", "Italy", "Ivory Coast", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya",
+            "Kiribati", "Kosovo", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya",
+            "Liechtenstein", "Lithuania", "Luxembourg", "Macao", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta",
+            "Marshall Islands", "Mauritania", "Mauritius", "Mexico", "Micronesia", "Moldova", "Monaco", "Mongolia", "Montenegro", "Morocco",
+            "Mozambique", "Myanmar", "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", "Nicaragua", "Niger", "Nigeria",
+            "North Korea", "North Macedonia", "Norway", "Oman", "Pakistan", "Palau", "Palestine", "Panama", "Papua New Guinea", "Paraguay",
+            "Peru", "Philippines", "Poland", "Portugal", "Qatar", "Romania", "Russia", "Rwanda", "Saint Kitts and Nevis", "Saint Lucia",
+            "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore",
+            "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "South Korea", "South Sudan", "Spain", "Sri Lanka", "Sudan",
+            "Suriname", "Sweden", "Switzerland", "Syria", "Taiwan", "Tajikistan", "Tanzania", "Thailand", "Timor-Leste", "Togo",
+            "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom",
+            "United States", "Uruguay", "Uzbekistan", "Vanuatu", "Vatican City", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe"
+        ];
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const nationalitySearch = document.getElementById('nationalitySearch');
+            const nationalitySelect = document.getElementById('nationality');
+            const nationalityDropdown = document.getElementById('nationalityDropdown');
+            const registrationForm = document.getElementById('registrationForm');
+            const formInputs = registrationForm.querySelectorAll('input, select, textarea');
+            const feedbackDiv = document.getElementById('formFeedback');
+
+            // Initialize country dropdown options
+            countries.forEach(country => {
+                const option = document.createElement('option');
+                option.value = country;
+                option.textContent = country;
+                nationalitySelect.appendChild(option);
+            });
+
+            // Country search functionality
+            nationalitySearch.addEventListener('input', function () {
+                const searchTerm = this.value.toLowerCase().trim();
+                nationalityDropdown.innerHTML = '';
+
+                if (searchTerm.length === 0) {
+                    nationalityDropdown.style.display = 'none';
+                    return;
+                }
+
+                const filteredCountries = countries.filter(country =>
+                    country.toLowerCase().includes(searchTerm)
+                );
+
+                if (filteredCountries.length === 0) {
+                    nationalityDropdown.style.display = 'none';
+                    return;
+                }
+
+                filteredCountries.forEach(country => {
+                    const item = document.createElement('div');
+                    item.className = 'country-item';
+                    item.textContent = country;
+                    item.addEventListener('click', function () {
+                        nationalitySearch.value = country;
+                        nationalitySelect.value = country;
+                        nationalityDropdown.style.display = 'none';
+                        clearFieldError(nationalitySearch);
+                    });
+                    nationalityDropdown.appendChild(item);
+                });
+
+                nationalityDropdown.style.display = 'block';
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function (e) {
+                if (e.target !== nationalitySearch && e.target !== nationalityDropdown) {
+                    nationalityDropdown.style.display = 'none';
+                }
+            });
+
+            // Real-time validation on blur
+            formInputs.forEach(input => {
+                input.addEventListener('blur', function () {
+                    validateField(this);
+                });
+
+                input.addEventListener('focus', function () {
+                    clearFieldError(this);
+                });
+            });
+
+            // Form submission
+            registrationForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                // Validate all fields
+                let isValid = true;
+                formInputs.forEach(input => {
+                    if (input.type !== 'checkbox' && input.id !== 'nationality' && !validateField(input)) {
+                        isValid = false;
+                    }
+                });
+
+                // Validate nationality field
+                if (!validateField(nationalitySelect)) {
+                    isValid = false;
+                }
+
+                // Check terms checkbox
+                if (!document.getElementById('terms').checked) {
+                    showFeedback('error', 'Please agree to the Terms and Conditions.');
+                    isValid = false;
+                }
+
+                if (isValid) {
+                    // Collect form data
+                    const formData = new FormData(registrationForm);
+                    const data = Object.fromEntries(formData.entries());
+                    // Handle checkbox manually
+                    data.terms = document.getElementById('terms').checked;
+
+                    // Send to backend
+                    fetch("{{ url_for('submit_registration') }}", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(data),
+                    })
+                        .then(response => response.json())
+                        .then(result => {
+                            // Show success message
+                            showFeedback('success', 'Registration submitted successfully! We will contact you soon.');
+
+                            // Reset form after 3 seconds
+                            setTimeout(() => {
+                                registrationForm.reset();
+                                nationalitySearch.value = '';
+                                nationalityDropdown.innerHTML = '';
+                                nationalityDropdown.style.display = 'none';
+                                feedbackDiv.classList.remove('success', 'error');
+                                feedbackDiv.style.display = 'none';
+                            }, 3000);
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            showFeedback('error', 'An error occurred. Please try again.');
+                        });
+                }
+            });
+
+            function validateField(field) {
+                const value = field.value.trim();
+                const type = field.type;
+                const name = field.id;
+                let isValid = true;
+
+                clearFieldError(field);
+
+                // Validate required fields
+                if (!value && field.hasAttribute('required')) {
+                    showFieldError(field, 'This field is required');
+                    isValid = false;
+                } else if (value) {
+                    // Email validation
+                    if (type === 'email') {
+                        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                        if (!emailRegex.test(value)) {
+                            showFieldError(field, 'Please enter a valid email address');
+                            isValid = false;
+                        }
+                    }
+                    // Phone validation (basic)
+                    else if (name === 'phoneNumber' && value.length < 10) {
+                        showFieldError(field, 'Please enter a valid phone number');
+                        isValid = false;
+                    }
+                    // Name validation
+                    else if (name === 'fullName' && value.length < 3) {
+                        showFieldError(field, 'Name must be at least 3 characters');
+                        isValid = false;
+                    }
+                    // Course goals validation
+                    else if (name === 'courseGoals' && value.length < 10) {
+                        showFieldError(field, 'Please provide more details about your goals');
+                        isValid = false;
+                    }
+                }
+
+                return isValid;
+            }
+
+            function showFieldError(field, message) {
+                field.classList.add('is-invalid');
+                const errorMsg = field.parentElement.querySelector('.error-text');
+                if (errorMsg) {
+                    errorMsg.textContent = message;
+                    errorMsg.style.display = 'block';
+                }
+            }
+
+            function clearFieldError(field) {
+                field.classList.remove('is-invalid');
+                const errorMsg = field.parentElement.querySelector('.error-text');
+                if (errorMsg) {
+                    errorMsg.style.display = 'none';
+                }
+            }
+
+            function showFeedback(type, message) {
+                feedbackDiv.className = `form-feedback ${type}`;
+                feedbackDiv.textContent = message;
+            }
+        });
+    </script>
+</body>
+
+</html>

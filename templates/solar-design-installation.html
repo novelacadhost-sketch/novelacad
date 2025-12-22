@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Novelsolar Academy - Solar Design and Installation | where innovation meets sustainability!</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Learning, Innovation, Sustainability, Education" name="keywords">
+    <meta content="Novelsolar Academy - Solar Design and Installation course | where innovation meets sustainability!"
+        name="description">
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600;700&family=Open+Sans:wght@400;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{{ url_for('static', filename='lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Topbar Start -->
+    <div class="container-fluid bg-dark">
+        <div class="row py-2 px-lg-5">
+            <div class="col-lg-6 text-center text-lg-left mb-2 mb-lg-0">
+                <div class="d-inline-flex align-items-center text-white">
+                    <small><i class="fa fa-phone-alt mr-2"></i>+2348113695917</small>
+                    <small class="px-3">|</small>
+                    <small><i class="fa fa-envelope mr-2"></i>novelsolaracademy@gmail.com</small>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center text-lg-right">
+                <div class="d-inline-flex align-items-center">
+                    <a class="text-white px-2" href="">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a class="text-white px-2" href="">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a class="text-white px-2" href="">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a class="text-white px-2" href="">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a class="text-white pl-2" href="">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Topbar End -->
+
+    <!-- Navbar Start -->
+    <div class="container-fluid p-0">
+        <nav class="navbar navbar-expand-lg bg-white navbar-light py-3 py-lg-0 px-lg-5">
+            <a href="index.html" class="navbar-brand ml-lg-3">
+                <h3 class="m-0 text-uppercase text-primary"><img
+                        style="height: 80%;width: 80%; padding-left: 30%;margin-bottom: -13%; "
+                        src="{{ url_for('static', filename='img/Movelsolar Academy (2).png') }}"
+                        alt="Novelsolar Academy logo"></h3>
+            </a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between px-lg-3" id="navbarCollapse">
+                <div class="navbar-nav mx-auto py-0">
+                    <a href="{{ url_for('home') }}" class="nav-item nav-link">Home</a>
+                    <a href="{{ url_for('about') }}" class="nav-item nav-link">About</a>
+                    <a href="{{ url_for('courses') }}" class="nav-item nav-link">Courses</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">More</a>
+                        <div class="dropdown-menu m-0">
+                            <a href="#" class="dropdown-item">Our Features</a>
+                            <a href="{{ url_for('team') }}" class="dropdown-item">Instructors</a>
+                            <a href="#" class="dropdown-item">Testimonial</a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </nav>
+    </div>
+    <!-- Navbar End -->
+
+    <!-- Header Start -->
+    <div class="jumbotron jumbotron-fluid page-header position-relative overlay-bottom" style="margin-bottom: 90px;">
+        <div class="container text-center py-5">
+            <h1 class="text-white display-1">Solar Design and Installation</h1>
+            <div class="d-inline-flex text-white mb-5">
+                <p class="m-0 text-uppercase"><a class="text-white" href="index.html">Home</a></p>
+                <i class="fa fa-angle-double-right pt-1 px-3"></i>
+                <p class="m-0 text-uppercase">Solar Design and Installation</p>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+
+    <!-- Course Detail Start -->
+    <div class="container-fluid py-5">
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-lg-8">
+                    <img class="img-fluid mb-5 rounded" src="{{ url_for('static', filename='img/solar install.png') }}"
+                        alt="Solar Design and Installation">
+
+                    <h3 class="mb-4">Course Overview</h3>
+                    <p class="mb-4">Master solar system design and installation with hands-on, industry-ready training.
+                        This comprehensive course equips you with the knowledge and practical skills needed to design,
+                        install, and optimize solar power systems. Whether you're looking to start a career in the
+                        renewable energy sector or enhance your existing skills, this course provides the foundation you
+                        need.</p>
+
+                    <h4 class="mb-3">What You'll Learn</h4>
+                    <ul class="mb-4">
+                        <li>Fundamentals of solar energy and photovoltaic technology</li>
+                        <li>System design and sizing calculations</li>
+                        <li>Installation techniques and best practices</li>
+                        <li>Electrical connections and safety protocols</li>
+                        <li>Performance monitoring and optimization</li>
+                        <li>Grid-tied and off-grid system configurations</li>
+                        <li>Regulatory compliance and standards</li>
+                    </ul>
+
+                    <h4 class="mb-3">Course Highlights</h4>
+                    <p>This course combines theoretical knowledge with practical hands-on experience in our
+                        state-of-the-art training facility. You'll work with real solar components and tools under the
+                        guidance of experienced instructors. By the end of the course, you'll be confident in designing
+                        and installing complete solar systems for residential and commercial applications.</p>
+
+                    <h4 class="mb-3">Duration & Certification</h4>
+                    <p>Course Duration: 12 weeks | Full-time: 40 hours/week<br>
+                        Upon completion, you'll receive a nationally recognized certificate approved by the Ministry of
+                        Education, giving you credibility in the renewable energy industry.</p>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="bg-light rounded p-5 mb-4">
+                        <h4 class="mb-4">Course Details</h4>
+                        <div class="mb-4">
+                            <h6 class="text-uppercase mb-2">Duration</h6>
+                            <p>12 Weeks (Full-time)</p>
+                        </div>
+                        <div class="mb-4">
+                            <h6 class="text-uppercase mb-2">Level</h6>
+                            <p>Beginner to Intermediate</p>
+                        </div>
+                        <div class="mb-4">
+                            <h6 class="text-uppercase mb-2">Class Size</h6>
+                            <p>Maximum 20 students per batch</p>
+                        </div>
+                        <div class="mb-4">
+                            <h6 class="text-uppercase mb-2">Prerequisites</h6>
+                            <p>Basic understanding of electrical concepts</p>
+                        </div>
+                        <div class="mb-4">
+                            <h6 class="text-uppercase mb-2">Certification</h6>
+                            <p>Ministry of Education Approved Certificate</p>
+                        </div>
+                        <a href="{{ url_for('registration') }}" class="btn btn-primary btn-block py-3 px-4">Register
+                            Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Course Detail End -->
+
+    <!-- Footer Start -->
+    <div class="container-fluid position-relative overlay-top bg-dark text-white-50 py-5" style="margin-top: 90px;">
+        <div class="container mt-5 pt-5">
+            <div class="row">
+                <div class="col-md-6 mb-5">
+                    <a href="{{ url_for('home') }}" class="navbar-brand">
+                        <h1 class="mt-n2 text-uppercase text-white"><img
+                                style="height: 80%;width: 80%; padding-left: 0%;"
+                                src="{{ url_for('static', filename='img/Movelsolar Academy (2).png') }}"
+                                alt="Novelsolar Academy logo"></h1>
+                    </a>
+                    <p class="m-0">Novelsolar Academy is committed to providing quality education in renewable energy
+                        and related fields. Our mission is to empower individuals with the knowledge and skills needed
+                        to drive innovation and sustainability.</p>
+                </div>
+                <div class="col-md-6 mb-5">
+                    <h3 class="text-white mb-4">Newsletter</h3>
+                    <div class="w-100">
+                        <div class="input-group">
+                            <input type="text" class="form-control border-light" style="padding: 30px;"
+                                placeholder="Your Email Address">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary px-4">Sign Up</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-5">
+                    <h3 class="text-white mb-4">Get In Touch</h3>
+                    <p><i class="fa fa-map-marker-alt mr-2"></i>Novelsolar Academy, Nigeria</p>
+                    <p><i class="fa fa-phone-alt mr-2"></i>+2348113695917</p>
+                    <p><i class="fa fa-envelope mr-2"></i>novelsolaracademy@gmail.com</p>
+                    <div class="d-flex justify-content-start mt-4">
+                        <a class="text-white mr-4" href="#"><i class="fab fa-2x fa-twitter"></i></a>
+                        <a class="text-white mr-4" href="#"><i class="fab fa-2x fa-facebook-f"></i></a>
+                        <a class="text-white mr-4" href="#"><i class="fab fa-2x fa-linkedin-in"></i></a>
+                        <a class="text-white" href="#"><i class="fab fa-2x fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-5">
+                    <h3 class="text-white mb-4">Our Courses</h3>
+                    <div class="d-flex flex-column justify-content-start">
+                        <a class="text-white-50 mb-2" href="{{ url_for('solar_design_installation') }}"><i
+                                class="fa fa-angle-right mr-2"></i>Solar Design & Installation</a>
+                        <a class="text-white-50 mb-2" href="{{ url_for('solarpreneurship') }}"><i
+                                class="fa fa-angle-right mr-2"></i>Solarpreneurship</a>
+                        <a class="text-white-50 mb-2" href="{{ url_for('repair_maintenance') }}"><i
+                                class="fa fa-angle-right mr-2"></i>Repair & Maintenance</a>
+                        <a class="text-white-50 mb-2" href="{{ url_for('hse_management') }}"><i
+                                class="fa fa-angle-right mr-2"></i>HSE Management</a>
+                        <a class="text-white-50" href="{{ url_for('courses') }}"><i
+                                class="fa fa-angle-right mr-2"></i>All Courses</a>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-5">
+                    <h3 class="text-white mb-4">Quick Links</h3>
+                    <div class="d-flex flex-column justify-content-start">
+                        <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Privacy Policy</a>
+                        <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Terms &
+                            Condition</a>
+                        <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Regular FAQs</a>
+                        <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Help & Support</a>
+                        <a class="text-white-50" href="contact.html"><i class="fa fa-angle-right mr-2"></i>Contact</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid bg-dark text-white-50 border-top py-4"
+        style="border-color: rgba(256, 256, 256, .1) !important;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-left mb-3 mb-md-0">
+                    <p class="m-0">Copyright &copy; <a class="text-white" href="#">Novelsolar Academy</a>. All Rights
+                        Reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-right">
+                    <p class="m-0">Designed with <a class="text-white" href="#">passion for sustainability</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary rounded-0 btn-lg-square back-to-top"><i
+            class="fa fa-angle-double-up"></i></a>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/counterup/counterup.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+
+</html>
