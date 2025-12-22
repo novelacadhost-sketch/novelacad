@@ -10,10 +10,10 @@
         name="description">
 
     <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='site.webmanifest') }}">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -68,7 +68,7 @@
     <!-- Navbar Start -->
     <div class="container-fluid p-0">
         <nav class="navbar navbar-expand-lg bg-white navbar-light py-3 py-lg-0 px-lg-5">
-            <a href="index.html" class="navbar-brand ml-lg-3">
+            <a href="{{ url_for('home') }}" class="navbar-brand ml-lg-3">
                 <h3 class="m-0 text-uppercase text-primary"><img
                         style="height: 80%;width: 80%; padding-left: 30%;margin-bottom: -13%; "
                         src="{{ url_for('static', filename='img/Movelsolar Academy (2).png') }}"
@@ -103,7 +103,7 @@
         <div class="container text-center py-5">
             <h1 class="text-white display-1">Solar Design and Installation</h1>
             <div class="d-inline-flex text-white mb-5">
-                <p class="m-0 text-uppercase"><a class="text-white" href="index.html">Home</a></p>
+                <p class="m-0 text-uppercase"><a class="text-white" href="{{ url_for('home') }}">Home</a></p>
                 <i class="fa fa-angle-double-right pt-1 px-3"></i>
                 <p class="m-0 text-uppercase">Solar Design and Installation</p>
             </div>
@@ -274,10 +274,10 @@
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/counterup/counterup.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="{{ url_for('static', filename='lib/easing/easing.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/waypoints/waypoints.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/counterup/counterup.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/owlcarousel/owl.carousel.min.js') }}"></script>
 
     <!-- Template Javascript -->
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
