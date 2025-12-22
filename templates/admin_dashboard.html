@@ -100,6 +100,60 @@
                         </table>
                     </div>
                 </section>
+
+                <!-- Admin Management Section -->
+                <section class="card" style="margin-top: 30px;">
+                    <h2 style="margin-top:0;color:var(--dark)">Manage Admins</h2>
+
+                    <div style="display:flex; flex-wrap:wrap; gap:30px;">
+                        <!-- List Admins -->
+                        <div style="flex:1; min-width:300px;">
+                            <h3 style="font-size:1.2rem; margin-bottom:15px; color:var(--primary);">Existing Admins</h3>
+                            <table class="table" style="width:100%;">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Username</th>
+                                        <th>Email</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for admin in admins %}
+                                    <tr>
+                                        <td>{{ admin.id }}</td>
+                                        <td>{{ admin.username }}</td>
+                                        <td>{{ admin.email }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Create Admin Form -->
+                        <div style="flex:1; min-width:300px;">
+                            <h3 style="font-size:1.2rem; margin-bottom:15px; color:var(--primary);">Create New Admin
+                            </h3>
+                            <form method="POST" action="{{ url_for('create_admin') }}"
+                                style="background:#f8f9fa; padding:20px; border-radius:8px;">
+                                <div class="form-group" style="margin-bottom:15px;">
+                                    <label for="new_username">Username</label>
+                                    <input type="text" id="new_username" name="username" class="form-control" required>
+                                </div>
+                                <div class="form-group" style="margin-bottom:15px;">
+                                    <label for="new_email">Email</label>
+                                    <input type="email" id="new_email" name="email" class="form-control" required>
+                                </div>
+                                <div class="form-group" style="margin-bottom:15px;">
+                                    <label for="new_password">Password</label>
+                                    <input type="password" id="new_password" name="password" class="form-control"
+                                        required>
+                                </div>
+                                <button type="submit" class="btn-submit" style="width:100%; padding: 10px;">Create
+                                    Admin</button>
+                            </form>
+                        </div>
+                    </div>
+                </section>
             </div>
         </div>
     </main>

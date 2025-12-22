@@ -1,9 +1,11 @@
 import sqlite3
 from flask import Flask, render_template, request, flash, redirect, url_for, jsonify, g, session
-from werkzeug.security import check_password_hash
+from werkzeug.security import check_password_hash, generate_password_hash
+from itsdangerous import URLSafeTimedSerializer
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'  # Required for flashing messages
+s = URLSafeTimedSerializer(app.secret_key)
 
 DATABASE = 'database.db'
 
@@ -110,7 +112,78 @@ def admin_dashboard():
     db = get_db()
     registrations = db.execute('SELECT * FROM registrations ORDER BY submitted_at DESC').fetchall()
     messages = db.execute('SELECT * FROM messages ORDER BY submitted_at DESC').fetchall()
-    return render_template("admin_dashboard.html", registrations=registrations, messages=messages)
+    admins = db.execute('SELECT * FROM admins').fetchall() # List admins
+    return render_template("admin_dashboard.html", registrations=registrations, messages=messages, admins=admins)
+
+@app.route("/admin/create", methods=["POST"])
+def create_admin():
+    if not session.get('admin_logged_in'):
+        return redirect(url_for('admin_login'))
+        
+    username = request.form.get("username")
+    email = request.form.get("email")
+    password = request.form.get("password")
+    
+    if not username or not email or not password:
+        flash("All fields are required.", "error")
+        return redirect(url_for('admin_dashboard'))
+        
+    password_hash = generate_password_hash(password)
+    db = get_db()
+    try:
+        db.execute('INSERT INTO admins (username, email, password_hash) VALUES (?, ?, ?)',
+                   (username, email, password_hash))
+        db.commit()
+        flash(f"Admin '{username}' successfully created.", "success")
+    except sqlite3.IntegrityError:
+        flash("Username or Email already exists.", "error")
+        
+    return redirect(url_for('admin_dashboard'))
+
+@app.route("/admin/forgot-password", methods=["GET", "POST"])
+def forgot_password():
+    if request.method == "POST":
+        email = request.form.get("email")
+        db = get_db()
+        user = db.execute('SELECT * FROM admins WHERE email = ?', (email,)).fetchone()
+        
+        if user:
+            token = s.dumps(email, salt='email-confirm')
+            link = url_for('reset_password', token=token, _external=True)
+            # In a real app, send this via email.
+            print(f"----- PASSWORD RESET LINK FOR {email} -----")
+            print(link)
+            print("---------------------------------------------")
+            flash("A password reset link has been sent to your email (check server console).", "success")
+        else:
+            flash("Email not found.", "error")
+            
+    return render_template("forgot_password.html")
+
+@app.route("/admin/reset-password/<token>", methods=["GET", "POST"])
+def reset_password(token):
+    try:
+        email = s.loads(token, salt='email-confirm', max_age=3600)
+    except:
+        flash("The reset link is invalid or has expired.", "error")
+        return redirect(url_for('admin_login'))
+        
+    if request.method == "POST":
+        password = request.form.get("password")
+        confirm = request.form.get("confirm_password")
+        
+        if password != confirm:
+            flash("Passwords do not match.", "error")
+            return redirect(url_for('reset_password', token=token))
+            
+        password_hash = generate_password_hash(password)
+        db = get_db()
+        db.execute('UPDATE admins SET password_hash = ? WHERE email = ?', (password_hash, email))
+        db.commit()
+        flash("Your password has been reset successfully. Please login.", "success")
+        return redirect(url_for('admin_login'))
+
+    return render_template("reset_password.html", token=token)
 
 # Contact Form Submission (Placeholder)
 @app.route("/submit_contact", methods=["POST"])
