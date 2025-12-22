@@ -1,5 +1,6 @@
 import sqlite3
 from flask import Flask, render_template, request, flash, redirect, url_for, jsonify, g, session
+from werkzeug.security import check_password_hash
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'  # Required for flashing messages
@@ -82,8 +83,10 @@ def admin_login():
         username = request.form.get("username")
         password = request.form.get("password")
         
-        # Hardcoded credentials for demonstration
-        if username == "admin" and password == "password123":
+        db = get_db()
+        user = db.execute('SELECT * FROM admins WHERE username = ?', (username,)).fetchone()
+        
+        if user and check_password_hash(user['password_hash'], password):
             session['admin_logged_in'] = True
             flash("Successfully logged in!", "success")
             return redirect(url_for('admin_dashboard'))
