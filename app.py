@@ -90,6 +90,8 @@ def admin_login():
         
         if user and check_password_hash(user['password_hash'], password):
             session['admin_logged_in'] = True
+            session['admin_role'] = user['role']
+            session['admin_username'] = user['username'] 
             flash("Successfully logged in!", "success")
             return redirect(url_for('admin_dashboard'))
         else:
@@ -100,6 +102,8 @@ def admin_login():
 @app.route("/admin/logout")
 def admin_logout():
     session.pop('admin_logged_in', None)
+    session.pop('admin_role', None)
+    session.pop('admin_username', None)
     flash("You have been logged out.", "success")
     return redirect(url_for('admin_login'))
 
@@ -133,6 +137,11 @@ def registration_details(reg_id):
 def create_admin():
     if not session.get('admin_logged_in'):
         return redirect(url_for('admin_login'))
+    
+    # MASTER ADMIN CHECK
+    if session.get('admin_role') != 'master':
+        flash("Unauthorized: Only Master Admins can create new admins.", "error")
+        return redirect(url_for('admin_dashboard'))
         
     username = request.form.get("username")
     email = request.form.get("email")
@@ -145,8 +154,9 @@ def create_admin():
     password_hash = generate_password_hash(password)
     db = get_db()
     try:
-        db.execute('INSERT INTO admins (username, email, password_hash) VALUES (?, ?, ?)',
-                   (username, email, password_hash))
+        # Default role for created admins is 'admin' (only master can promote via CLI for now safely)
+        db.execute('INSERT INTO admins (username, email, role, password_hash) VALUES (?, ?, ?, ?)',
+                   (username, email, 'admin', password_hash))
         db.commit()
         flash(f"Admin '{username}' successfully created.", "success")
     except sqlite3.IntegrityError:

@@ -117,6 +117,7 @@
                                         <th>ID</th>
                                         <th>Username</th>
                                         <th>Email</th>
+                                        <th>Role</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -125,13 +126,23 @@
                                         <td>{{ admin.id }}</td>
                                         <td>{{ admin.username }}</td>
                                         <td>{{ admin.email }}</td>
+                                        <td>
+                                            {% if admin.role == 'master' %}
+                                            <span
+                                                style="background:var(--primary); color:#fff; padding:2px 6px; border-radius:4px; font-size:0.8rem;">Master</span>
+                                            {% else %}
+                                            <span
+                                                style="background:#eee; color:#666; padding:2px 6px; border-radius:4px; font-size:0.8rem;">Admin</span>
+                                            {% endif %}
+                                        </td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>
                             </table>
                         </div>
 
-                        <!-- Create Admin Form -->
+                        <!-- Create Admin Form (Master Admin Only) -->
+                        {% if session.get('admin_role') == 'master' %}
                         <div style="flex:1; min-width:300px;">
                             <h3 style="font-size:1.2rem; margin-bottom:15px; color:var(--primary);">Create New Admin
                             </h3>
@@ -154,6 +165,7 @@
                                     Admin</button>
                             </form>
                         </div>
+                        {% endif %}
                     </div>
                 </section>
             </div>

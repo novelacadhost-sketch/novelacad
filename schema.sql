@@ -33,5 +33,6 @@ CREATE TABLE admins (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT NOT NULL UNIQUE,
     email TEXT NOT NULL UNIQUE,
+    role TEXT DEFAULT 'admin',
     password_hash TEXT NOT NULL
 );
