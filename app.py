@@ -110,10 +110,24 @@ def admin_dashboard():
         return redirect(url_for('admin_login'))
 
     db = get_db()
-    registrations = db.execute('SELECT * FROM registrations ORDER BY submitted_at DESC').fetchall()
+    registrations = db.execute('SELECT id, full_name, course, submitted_at FROM registrations ORDER BY submitted_at DESC').fetchall()
     messages = db.execute('SELECT * FROM messages ORDER BY submitted_at DESC').fetchall()
-    admins = db.execute('SELECT * FROM admins').fetchall() # List admins
+    admins = db.execute('SELECT * FROM admins').fetchall() 
     return render_template("admin_dashboard.html", registrations=registrations, messages=messages, admins=admins)
+
+@app.route("/admin/registration/<int:reg_id>")
+def registration_details(reg_id):
+    if not session.get('admin_logged_in'):
+        return redirect(url_for('admin_login'))
+    
+    db = get_db()
+    registration = db.execute('SELECT * FROM registrations WHERE id = ?', (reg_id,)).fetchone()
+    
+    if registration is None:
+        flash("Registration not found.", "error")
+        return redirect(url_for('admin_dashboard'))
+        
+    return render_template("registration_details.html", registration=registration)
 
 @app.route("/admin/create", methods=["POST"])
 def create_admin():

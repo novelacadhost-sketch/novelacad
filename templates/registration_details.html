@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Registration Details - {{ registration.full_name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        body {
+            background: var(--light);
+        }
+
+        .details-card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+        }
+
+        .details-section {
+            margin-bottom: 30px;
+        }
+
+        .details-section h3 {
+            color: var(--primary);
+            font-size: 1.2rem;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .detail-row {
+            display: flex;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #f8f9fa;
+            padding-bottom: 8px;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            width: 200px;
+            color: var(--dark);
+        }
+
+        .detail-value {
+            color: #666;
+            flex: 1;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .back-btn:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <main style="padding:40px;">
+        <div style="max-width:900px; margin:0 auto;">
+            <a href="{{ url_for('admin_dashboard') }}" class="back-btn">&larr; Back to Dashboard</a>
+
+            <div class="admin-header" style="margin-bottom:30px;">
+                <h1 style="margin:0;color:var(--dark)">Student Profile</h1>
+                <span style="color:#6B6A75">Submitted: {{ registration.submitted_at }}</span>
+            </div>
+
+            <div class="details-card">
+                <div class="details-section">
+                    <h3>Personal Information</h3>
+                    <div class="detail-row">
+                        <div class="detail-label">Full Name</div>
+                        <div class="detail-value">{{ registration.full_name }}</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Email</div>
+                        <div class="detail-value"><a href="mailto:{{ registration.email }}">{{ registration.email }}</a>
+                        </div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Phone</div>
+                        <div class="detail-value"><a href="tel:{{ registration.phone }}">{{ registration.phone }}</a>
+                        </div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Date of Birth</div>
+                        <div class="detail-value">{{ registration.dob }}</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Gender</div>
+                        <div class="detail-value">{{ registration.sex }}</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Nationality</div>
+                        <div class="detail-value">{{ registration.nationality }}</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">State of Origin</div>
+                        <div class="detail-value">{{ registration.state }}</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Address</div>
+                        <div class="detail-value">{{ registration.address }}</div>
+                    </div>
+                </div>
+
+                <div class="details-section">
+                    <h3>Course Selection</h3>
+                    <div class="detail-row">
+                        <div class="detail-label">Selected Course</div>
+                        <div class="detail-value" style="font-weight:bold; color:var(--dark);">{{ registration.course }}
+                        </div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Level</div>
+                        <div class="detail-value">{{ registration.level }}</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Preferred Shift</div>
+                        <div class="detail-value">{{ registration.shift }}</div>
+                    </div>
+                </div>
+
+                <div class="details-section">
+                    <h3>Background & Goals</h3>
+                    <div class="detail-row">
+                        <div class="detail-label">Experience Level</div>
+                        <div class="detail-value">{{ registration.experience }}</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">How they heard about us</div>
+                        <div class="detail-value">{{ registration.info_source }}</div>
+                    </div>
+                    {% if registration.goals %}
+                    <div style="margin-top:15px;">
+                        <div class="detail-label" style="margin-bottom:8px;">Career Goals / Notes</div>
+                        <div class="detail-value" style="background:#f8f9fa; padding:15px; border-radius:4px;">
+                            {{ registration.goals }}
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

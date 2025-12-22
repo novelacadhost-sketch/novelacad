@@ -41,10 +41,9 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Phone</th>
                                     <th>Course</th>
                                     <th>Submitted</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -52,10 +51,13 @@
                                 <tr>
                                     <td>{{ reg.id }}</td>
                                     <td>{{ reg.full_name }}</td>
-                                    <td>{{ reg.email }}</td>
-                                    <td>{{ reg.phone }}</td>
                                     <td>{{ reg.course }}</td>
                                     <td>{{ reg.submitted_at }}</td>
+                                    <td>
+                                        <a href="{{ url_for('registration_details', reg_id=reg.id) }}"
+                                            class="btn-submit"
+                                            style="padding:5px 10px; font-size:0.8rem; text-decoration:none;">View</a>
+                                    </td>
                                 </tr>
                                 {% else %}
                                 <tr>
