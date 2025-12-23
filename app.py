@@ -261,11 +261,11 @@ def submit_registration():
         # Save to DB
         db = get_db()
         db.execute('''INSERT INTO registrations 
-                      (full_name, email, phone, dob, address, sex, nationality, state, course, level, shift, goals, experience, info_source) 
-                      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''',
-                   (data.get('fullName'), data.get('email'), data.get('phone'), data.get('dob'), data.get('address'), 
+                      (full_name, email, phone, dob, address, sex, nationality, state, course, level, qualification, shift, goals, experience, info_source) 
+                      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''',
+                   (data.get('fullName'), data.get('email'), data.get('phoneNumber'), data.get('dob'), data.get('address'), 
                     data.get('sex'), data.get('nationality'), data.get('state'), data.get('course'), 
-                    data.get('level'), data.get('shift'), data.get('goals'), data.get('experience'), data.get('infoSource')))
+                    data.get('educationLevel'), data.get('qualification'), data.get('shift'), data.get('courseGoals'), data.get('experience'), data.get('infoSource')))
         db.commit()
         print(f"Registration Submission Saved (JSON): {data.get('fullName')}")
         # Return redirect URL for JS to handle
