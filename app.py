@@ -164,6 +164,29 @@ def create_admin():
         
     return redirect(url_for('admin_dashboard'))
 
+@app.route("/admin/delete/<int:admin_id>", methods=["POST"])
+def delete_admin(admin_id):
+    if not session.get('admin_logged_in'):
+        return redirect(url_for('admin_login'))
+    
+    # MASTER ADMIN CHECK
+    if session.get('admin_role') != 'master':
+        flash("Unauthorized: Only Master Admins can delete admins.", "error")
+        return redirect(url_for('admin_dashboard'))
+    
+    # Prevent deletion of self
+    db = get_db()
+    current_user = db.execute('SELECT id FROM admins WHERE username = ?', (session.get('admin_username'),)).fetchone()
+    if current_user and current_user['id'] == admin_id:
+         flash("Operation failed: You cannot delete your own account.", "error")
+         return redirect(url_for('admin_dashboard'))
+
+    # Execute deletion
+    db.execute('DELETE FROM admins WHERE id = ?', (admin_id,))
+    db.commit()
+    flash("Admin user deleted successfully.", "success")
+    return redirect(url_for('admin_dashboard'))
+
 @app.route("/admin/forgot-password", methods=["GET", "POST"])
 def forgot_password():
     if request.method == "POST":

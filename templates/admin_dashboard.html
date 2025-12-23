@@ -103,7 +103,8 @@
                     </div>
                 </section>
 
-                <!-- Admin Management Section -->
+                <!-- Admin Management Section (Master Admin Only) -->
+                {% if session.get('admin_role') == 'master' %}
                 <section class="card" style="margin-top: 30px;">
                     <h2 style="margin-top:0;color:var(--dark)">Manage Admins</h2>
 
@@ -118,6 +119,7 @@
                                         <th>Username</th>
                                         <th>Email</th>
                                         <th>Role</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -135,6 +137,17 @@
                                                 style="background:#eee; color:#666; padding:2px 6px; border-radius:4px; font-size:0.8rem;">Admin</span>
                                             {% endif %}
                                         </td>
+                                        <td>
+                                            {% if admin.role != 'master' %}
+                                            <form action="{{ url_for('delete_admin', admin_id=admin.id) }}"
+                                                method="POST"
+                                                onsubmit="return confirm('Are you sure you want to delete this admin?');"
+                                                style="display:inline;">
+                                                <button type="submit"
+                                                    style="background:none; border:none; color:red; cursor:pointer; text-decoration:underline; font-size:0.9rem;">Delete</button>
+                                            </form>
+                                            {% endif %}
+                                        </td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>
@@ -142,7 +155,6 @@
                         </div>
 
                         <!-- Create Admin Form (Master Admin Only) -->
-                        {% if session.get('admin_role') == 'master' %}
                         <div style="flex:1; min-width:300px;">
                             <h3 style="font-size:1.2rem; margin-bottom:15px; color:var(--primary);">Create New Admin
                             </h3>
@@ -165,9 +177,9 @@
                                     Admin</button>
                             </form>
                         </div>
-                        {% endif %}
                     </div>
                 </section>
+                {% endif %}
             </div>
         </div>
     </main>
