@@ -250,6 +250,10 @@ def submit_contact():
     flash("Your message has been sent successfully!", "success")
     return redirect(url_for('home'))
 
+@app.route("/thank-you")
+def thank_you():
+    return render_template("thank_you.html")
+
 @app.route("/submit_registration", methods=["POST"])
 def submit_registration():
     if request.is_json:
@@ -264,7 +268,8 @@ def submit_registration():
                     data.get('level'), data.get('shift'), data.get('goals'), data.get('experience'), data.get('infoSource')))
         db.commit()
         print(f"Registration Submission Saved (JSON): {data.get('fullName')}")
-        return jsonify({"status": "success", "message": "Registration received"})
+        # Return redirect URL for JS to handle
+        return jsonify({"status": "success", "message": "Registration received", "redirect": url_for('thank_you')})
     
     # Fallback for standard form submission (if JS fails or is disabled)
     # Note: This block handles standard POST requests. For brevity, assuming similar fields are extracted from request.form
@@ -273,8 +278,7 @@ def submit_registration():
     email = request.form.get("email")
     # ... (Implementation for standard form persistence would go here)
     print(f"Registration Submission (Form): {full_name}, {email}")
-    flash("Registration submitted successfully!", "success")
-    return redirect(url_for('registration'))
+    return redirect(url_for('thank_you'))
 
 if __name__ == "__main__":
     app.run(debug=True)
