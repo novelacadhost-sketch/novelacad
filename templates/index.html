@@ -101,6 +101,22 @@
     </div>
     <!-- Navbar End -->
 
+    <!-- Flash Messages -->
+    <div class="container-fluid px-0">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category if category != 'message' else 'info' }} alert-dismissible fade show m-0 rounded-0"
+            role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+    </div>
 
     <!-- Header Start -->
 
