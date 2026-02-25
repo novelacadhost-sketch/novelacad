@@ -21,6 +21,11 @@ s = URLSafeTimedSerializer(app.secret_key)
 # Initialize CSRF Protection
 csrf = CSRFProtect(app)
 
+
+@app.route('/health-check')
+def health_check():
+    return "OK", 200
+
 # Email Configuration
 app.config['MAIL_SERVER'] = os.environ.get('MAIL_SERVER', 'smtp.gmail.com')
 app.config['MAIL_PORT'] = int(os.environ.get('MAIL_PORT', 587))
@@ -76,7 +81,7 @@ def init_database():
     if not db_exists:
         print(f"Database '{DATABASE}' not found. Initializing...")
         try:
-            db = sqlite3.connect(DATABASE)
+            db = sqlite3.connect(DATABASE, timeout=20)
             with open('schema.sql', 'r') as f:
                 db.executescript(f.read())
             db.commit()
@@ -91,7 +96,7 @@ def init_database():
     else:
         # Database exists, but check if tables are present
         try:
-            db = sqlite3.connect(DATABASE)
+            db = sqlite3.connect(DATABASE, timeout=20)
             cursor = db.cursor()
             
             # Check if required tables exist
@@ -206,7 +211,7 @@ def validate_anti_bot(form_data, is_json=False):
 def get_db():
     """Get database connection from Flask g object"""
     if not hasattr(g, '_database'):
-        g._database = sqlite3.connect(DATABASE)
+        g._database = sqlite3.connect(DATABASE, timeout=20)
         g._database.row_factory = sqlite3.Row
     return g._database
 

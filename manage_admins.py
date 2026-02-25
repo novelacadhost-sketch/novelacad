@@ -5,7 +5,7 @@ from werkzeug.security import generate_password_hash
 DATABASE = 'database.db'
 
 def get_db():
-    return sqlite3.connect(DATABASE)
+    return sqlite3.connect(DATABASE, timeout=20)
 
 def init_admin_table():
     """Creates the admins table if it doesn't exist, and adds email column if missing."""

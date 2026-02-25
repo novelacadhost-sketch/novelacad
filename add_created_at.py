@@ -4,7 +4,7 @@ from datetime import datetime
 
 DATABASE = 'database.db'
 
-conn = sqlite3.connect(DATABASE)
+conn = sqlite3.connect(DATABASE, timeout=20)
 c = conn.cursor()
 
 try:
