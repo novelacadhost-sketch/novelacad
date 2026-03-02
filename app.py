@@ -680,12 +680,16 @@ def submit_registration():
             insert_registration(data)
             print(f"Registration Submission Saved (JSON): {data.get('fullName')}")
             
-            # Send Thank You Email
+            # Send Emails
             try:
                 full_name = data.get('fullName', '')
-                first_name = full_name.split()[0] if full_name else 'Applicant'
+                name_parts = full_name.split()
+                first_name = name_parts[0] if name_parts else 'Applicant'
+                last_name = " ".join(name_parts[1:]) if len(name_parts) > 1 else ''
+                course = data.get('course', 'Unknown Course')
                 email = data.get('email')
                 
+                # Applicant Email
                 msg = Message(
                     subject="Novel Academy: Application Received",
                     recipients=[email]
@@ -705,6 +709,21 @@ The Novel Academy Team
                 mail.send(msg)
             except Exception as e:
                 app.logger.error(f"Failed to send registration thank you email (JSON): {e}")
+
+            try:
+                # Admin Notification Email
+                admin_email = app.config.get('MAIL_DEFAULT_SENDER') or app.config.get('MAIL_USERNAME')
+                admin_subject = f"New Registration: {first_name} {last_name}".strip()
+                admin_body = f"A new application has been submitted by {first_name} {last_name}".strip() + f" for the {course} course. Please log in to the admin dashboard to view their full application details and contact information."
+                
+                admin_msg = Message(
+                    subject=admin_subject,
+                    recipients=[admin_email]
+                )
+                admin_msg.body = admin_body
+                mail.send(admin_msg)
+            except Exception as e:
+                app.logger.error(f"Failed to send admin notification email (JSON): {e}")
 
             return jsonify({"status": "success", "message": "Registration received", "redirect": "/thank-you"})
         except Exception as e:
@@ -739,12 +758,16 @@ The Novel Academy Team
         insert_registration(data)
         print(f"Registration Submission Saved (Form): {data['full_name']}")
         
-        # Send Thank You Email
+        # Send Emails
         try:
             full_name = data.get('full_name', '')
-            first_name = full_name.split()[0] if full_name else 'Applicant'
+            name_parts = full_name.split()
+            first_name = name_parts[0] if name_parts else 'Applicant'
+            last_name = " ".join(name_parts[1:]) if len(name_parts) > 1 else ''
+            course = data.get('course', 'Unknown Course')
             email = data.get('email')
             
+            # Applicant Email
             msg = Message(
                 subject="Novel Academy: Application Received",
                 recipients=[email]
@@ -764,6 +787,21 @@ The Novel Academy Team
             mail.send(msg)
         except Exception as e:
             app.logger.error(f"Failed to send registration thank you email (Form): {e}")
+
+        try:
+            # Admin Notification Email
+            admin_email = app.config.get('MAIL_DEFAULT_SENDER') or app.config.get('MAIL_USERNAME')
+            admin_subject = f"New Registration: {first_name} {last_name}".strip()
+            admin_body = f"A new application has been submitted by {first_name} {last_name}".strip() + f" for the {course} course. Please log in to the admin dashboard to view their full application details and contact information."
+            
+            admin_msg = Message(
+                subject=admin_subject,
+                recipients=[admin_email]
+            )
+            admin_msg.body = admin_body
+            mail.send(admin_msg)
+        except Exception as e:
+            app.logger.error(f"Failed to send admin notification email (Form): {e}")
 
         flash("Registration submitted successfully!", "success")
     except Exception as e:
